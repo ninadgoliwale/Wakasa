@@ -4,8 +4,9 @@ services:
     runtime: node
     buildCommand: ""
     startCommand: node index.js
+    rootDir: .
     envVars:
       - key: BOT_TOKEN
-        sync: false
+        required: true
       - key: PORT
         value: 3000
