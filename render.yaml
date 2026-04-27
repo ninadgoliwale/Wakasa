@@ -2,20 +2,10 @@ services:
   - type: web
     name: wakasa-escrow-bot
     runtime: node
-    region: oregon
-    plan: free
+    buildCommand: ""
+    startCommand: node index.js
     envVars:
       - key: BOT_TOKEN
-        required: true
         sync: false
       - key: PORT
         value: 3000
-    buildCommand: |
-      npm install
-      npm install --only=production
-    startCommand: node index.js
-    healthCheckPath: /
-    autoDeploy: true
-    scaling:
-      minInstances: 1
-      maxInstances: 1
