@@ -1,12 +1,11 @@
 {
-  "name": "telegram-wakasa-escrow-bot",
+  "name": "wakasa-escrow-bot",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.0.0"
   }
 }
