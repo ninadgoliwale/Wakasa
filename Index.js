@@ -1,10 +1,11 @@
-import http from "node:http";
+import http from "http";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const PORT = process.env.PORT || 3000;
 
 if (!BOT_TOKEN) {
-  throw new Error("BOT_TOKEN environment variable is required");
+  console.error("BOT_TOKEN environment variable is required");
+  process.exit(1);
 }
 
 const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
@@ -58,7 +59,7 @@ function calculateFee(amount) {
   if (amount < 200) return 5;
   if (amount <= 800) return 10;
   if (amount <= 3000) return 25;
-  return amount * 0.02;  // 2% for above 3000
+  return amount * 0.02;
 }
 
 function formatRupees(value) {
