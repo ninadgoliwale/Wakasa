@@ -93,15 +93,26 @@ async function handleMessage(message) {
   const chatId = message.chat.id;
   const replyToMessageId = message.message_id;
 
+  // Handle /start or /help
   if (text === "/start" || text === "/help") {
     await sendMessage(chatId, HELP_MESSAGE, replyToMessageId);
     return;
   }
 
-  const amount = extractAmount(text);
-  if (amount && amount > 0) {
+  // Handle /fee or /fees command ONLY
+  const commandMatch = text.match(/^\/(?:fee|fees)(?:@\w+)?(?:\s+(.+))?$/i);
+  if (commandMatch) {
+    const amount = commandMatch[1] ? extractAmount(commandMatch[1]) : null;
+    if (!amount || amount <= 0) {
+      await sendMessage(chatId, "Send the deal amount like /fee 500", replyToMessageId);
+      return;
+    }
     await sendMessage(chatId, buildCalculationMessage(amount), replyToMessageId);
-  } else if (message.chat.type === "private") {
+    return;
+  }
+
+  // In private chat, if no command is used, send help message
+  if (message.chat.type === "private") {
     await sendMessage(chatId, HELP_MESSAGE, replyToMessageId);
   }
 }
